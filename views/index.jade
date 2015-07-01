@@ -1,5 +1,55 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Oversimplified Food Diary
+  p for those who believe humans energy intake is as simple as for cars.
+  
+  h2 basic statistics
+  table.text-center
+    thead
+      tr
+        th BMI
+        th Starting Weight
+        th Weight Change
+        th Current Weight
+    tbody
+      tr
+        td {{user.bmi()}}
+        td {{user.weight}}
+        td {{user.weightChange()}}
+        td {{user.weight + user.weightChange()}}
+
+  h2 input human
+  input(placeholder='name', ng-model='user.name')
+  input(placeholder='age', ng-model='user.age')
+  input(placeholder='gender', ng-model='user.gender')
+  input(placeholder='weight', ng-model='user.weight')
+  input(placeholder='height', ng-model='user.height')
+  input(placeholder='unit', ng-model='user.unit')
+    
+  h2 add food-substance
+  form(ng-submit='addMeal()')
+    input(placeholder='description', ng-model='newFood.description')
+    input(placeholder='time', ng-model='newFood.time')
+    input(placeholder='calories', ng-model='newFood.calories')
+    input(placeholder='servings', ng-model='newFood.servings')
+    button(type='submit', ng-hide='{{isEditing}}') add food
+    button(ng-click='finishEdit()', ng-show='{{isEditing}}') finish edit
+
+  table.text-center
+    thead
+      tr
+        th Description
+        th Time
+        th Calories
+        th Servings
+        th Edit/Delete
+    tbody(ng-repeat='food in foods track by $index')
+        tr
+          td {{food.description}}
+          td {{food.time}}
+          td {{food.calories}}
+          td {{food.servings}}
+          td
+            button(ng-click='editMeal($index)') edit
+            button(ng-click='deleteMeal($index)') delete
