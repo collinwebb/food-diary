@@ -28,13 +28,13 @@ block content
   input(placeholder='unit', ng-model='user.unit')
     
   h2 add food-substance
-  form(ng-submit='addMeal()')
+  form
     input(placeholder='description', ng-model='newFood.description')
     input(placeholder='time', ng-model='newFood.time')
     input(placeholder='calories', ng-model='newFood.calories')
     input(placeholder='servings', ng-model='newFood.servings')
-    button(type='submit', ng-hide='{{isEditing}}') add food
-    button(ng-click='finishEdit()', ng-show='{{isEditing}}') finish edit
+    button(ng-click='addMeal()') add food
+    button(ng-click='finishEdit()') finish edit
 
   table.text-center
     thead
@@ -44,12 +44,14 @@ block content
         th Calories
         th Servings
         th Edit/Delete
-    tbody(ng-repeat='food in foods track by $index')
-        tr
-          td {{food.description}}
-          td {{food.time}}
-          td {{food.calories}}
-          td {{food.servings}}
-          td
-            button(ng-click='editMeal($index)') edit
-            button(ng-click='deleteMeal($index)') delete
+    tbody
+      tr(ng-repeat='food in foods track by $index')
+        td {{$index}}{{food.description}}
+        td {{food.time}}
+        td {{food.calories}}
+        td {{food.servings}}
+        td
+          button(ng-click='editMeal($index)') edit
+          button(ng-click='deleteMeal($index)') delete
+  {{newFood}}
+  {{foods}}

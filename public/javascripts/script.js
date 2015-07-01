@@ -1,7 +1,6 @@
 angular.module('foodDiary',[])
 .controller('foodController', function($scope) {
   var savedIndex;
-  $scope.isEditing = false;
   $scope.foods = [];
   $scope.user = {
     name: 'Collin', age: 26, gender: 'male',
@@ -27,8 +26,6 @@ angular.module('foodDiary',[])
     $scope.foods.splice(index, 1);
   };
   $scope.editMeal = function(index){
-    $scope.isEditing = true;
-    console.log($scope.isEditing);
     $scope.newFood = $scope.foods[index];
     savedIndex = index;
   };
@@ -36,6 +33,5 @@ angular.module('foodDiary',[])
     $scope.foods.splice(savedIndex, 1, $scope.newFood);
     $scope.newFood = {};
     savedIndex = null;
-    $scope.isEditing = false;
   };
 });
